@@ -10,7 +10,6 @@ import {
   TxFrom,
   TxHash,
   TxHistoryParams,
-  TxParams,
   TxTo,
   TxType,
   TxsPage,
@@ -35,7 +34,8 @@ import {
   ChainId,
   ChainIds,
   ClientUrl,
-  DepositParam,
+  DcfDepositParam,
+  DcfTxParams,
   ExplorerUrls,
   NodeUrl,
   ThorchainClientParams,
@@ -71,7 +71,7 @@ export interface ThorchainClient {
   setExplorerUrls(explorerUrls: ExplorerUrls): void
   getCosmosClient(): CosmosSDKClient
 
-  deposit(params: DepositParam): Promise<TxHash>
+  deposit(params: DcfDepositParam): Promise<TxHash>
   transferOffline(params: TxOfflineParams): Promise<string>
 }
 
@@ -423,7 +423,13 @@ class Client extends BaseXChainClient implements ThorchainClient, XChainClient {
    * @throws {"insufficient funds"} Thrown if the wallet has insufficient funds.
    * @throws {"failed to broadcast transaction"} Thrown if failed to broadcast transaction.
    */
-  async deposit({ walletIndex = 0, asset = AssetRuneNative, amount, memo, sequence }: DepositParam): Promise<TxHash> {
+  async deposit({
+    walletIndex = 0,
+    asset = AssetRuneNative,
+    amount,
+    memo,
+    sequence,
+  }: DcfDepositParam): Promise<TxHash> {
     const balances = await this.getBalance(this.getAddress(walletIndex))
     const runeBalance: BaseAmount =
       balances.filter(({ asset }) => isAssetRuneNative(asset))[0]?.amount ?? baseAmount(0, DECIMAL)
@@ -501,7 +507,7 @@ class Client extends BaseXChainClient implements ThorchainClient, XChainClient {
     recipient,
     memo,
     sequence,
-  }: TxParams): Promise<TxHash> {
+  }: DcfTxParams): Promise<TxHash> {
     const balances = await this.getBalance(this.getAddress(walletIndex))
     const runeBalance: BaseAmount =
       balances.filter(({ asset }) => isAssetRuneNative(asset))[0]?.amount ?? baseAmount(0, DECIMAL)

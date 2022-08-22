@@ -31,6 +31,7 @@ export type DepositParam = {
   asset?: Asset
   amount: BaseAmount
   memo: string
+  sequence?: Long
 }
 
 export type TxData = Pick<Tx, 'from' | 'to' | 'type'>

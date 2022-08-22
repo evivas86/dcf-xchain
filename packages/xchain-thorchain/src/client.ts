@@ -423,7 +423,7 @@ class Client extends BaseXChainClient implements ThorchainClient, XChainClient {
    * @throws {"insufficient funds"} Thrown if the wallet has insufficient funds.
    * @throws {"failed to broadcast transaction"} Thrown if failed to broadcast transaction.
    */
-  async deposit({ walletIndex = 0, asset = AssetRuneNative, amount, memo }: DepositParam): Promise<TxHash> {
+  async deposit({ walletIndex = 0, asset = AssetRuneNative, amount, memo, sequence }: DepositParam): Promise<TxHash> {
     const balances = await this.getBalance(this.getAddress(walletIndex))
     const runeBalance: BaseAmount =
       balances.filter(({ asset }) => isAssetRuneNative(asset))[0]?.amount ?? baseAmount(0, DECIMAL)
@@ -467,7 +467,7 @@ class Client extends BaseXChainClient implements ThorchainClient, XChainClient {
     })
 
     const account = await this.getCosmosClient().getAccount(fromAddressAcc)
-    const accountSequence = account.sequence || cosmosclient.Long.ZERO
+    const accountSequence = sequence ? sequence : account.sequence || cosmosclient.Long.ZERO
     const accountNumber = account.account_number || cosmosclient.Long.ZERO
 
     const gasLimit = await getEstimatedGas({
@@ -482,7 +482,7 @@ class Client extends BaseXChainClient implements ThorchainClient, XChainClient {
       txBody: depositTxBody,
       signerPubkey: cosmosclient.codec.packAny(signerPubkey),
       gasLimit,
-      sequence: account.sequence || cosmosclient.Long.ZERO,
+      sequence: accountSequence || cosmosclient.Long.ZERO,
     })
 
     return (await this.getCosmosClient().signAndBroadcast(txBuilder, privKey, account)) || ''

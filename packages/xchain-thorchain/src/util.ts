@@ -213,8 +213,8 @@ export const buildUnsignedTx = ({
   cosmosSdk: cosmosclient.CosmosSDK
   txBody: proto.cosmos.tx.v1beta1.TxBody
   signerPubkey: proto.google.protobuf.Any
-  sequence: cosmosclient.Long.Long
-  gasLimit?: cosmosclient.Long.Long
+  sequence: Long
+  gasLimit?: Long
 }): cosmosclient.TxBuilder => {
   const authInfo = new proto.cosmos.tx.v1beta1.AuthInfo({
     signer_infos: [
@@ -248,10 +248,10 @@ export const getEstimatedGas = async ({
   cosmosSDKClient: CosmosSDKClient
   txBody: proto.cosmos.tx.v1beta1.TxBody
   privKey: proto.cosmos.crypto.secp256k1.PrivKey
-  accountNumber: cosmosclient.Long.Long
-  accountSequence: cosmosclient.Long.Long
+  accountNumber: Long
+  accountSequence: Long
   multiplier?: number
-}): Promise<cosmosclient.Long.Long | undefined> => {
+}): Promise<Long | undefined> => {
   const pubKey = privKey.pubKey()
   const txBuilder = buildUnsignedTx({
     cosmosSdk: cosmosSDKClient.sdk,

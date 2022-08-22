@@ -99,17 +99,17 @@ export declare const buildUnsignedTx: ({ cosmosSdk, txBody, signerPubkey, sequen
     cosmosSdk: cosmosclient.CosmosSDK;
     txBody: proto.cosmos.tx.v1beta1.TxBody;
     signerPubkey: proto.google.protobuf.Any;
-    sequence: cosmosclient.Long.Long;
+    sequence: Long;
     gasLimit?: cosmosclient.Long.Long | undefined;
 }) => cosmosclient.TxBuilder;
 export declare const getEstimatedGas: ({ cosmosSDKClient, txBody, privKey, accountNumber, accountSequence, multiplier, }: {
     cosmosSDKClient: CosmosSDKClient;
     txBody: proto.cosmos.tx.v1beta1.TxBody;
     privKey: proto.cosmos.crypto.secp256k1.PrivKey;
-    accountNumber: cosmosclient.Long.Long;
-    accountSequence: cosmosclient.Long.Long;
+    accountNumber: Long;
+    accountSequence: Long;
     multiplier?: number | undefined;
-}) => Promise<cosmosclient.Long.Long | undefined>;
+}) => Promise<Long | undefined>;
 /**
  * Structure a MsgDeposit
  *

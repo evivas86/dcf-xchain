@@ -6070,7 +6070,7 @@ class Client extends xchainClient.BaseXChainClient {
      * @throws {"insufficient funds"} Thrown if the wallet has insufficient funds.
      * @throws {"failed to broadcast transaction"} Thrown if failed to broadcast transaction.
      */
-    deposit({ walletIndex = 0, asset = xchainUtil.AssetRuneNative, amount, memo, sequence }) {
+    deposit({ walletIndex = 0, asset = xchainUtil.AssetRuneNative, amount, memo, sequence, }) {
         var _a, _b, _c, _d;
         return __awaiter(this, void 0, void 0, function* () {
             const balances = yield this.getBalance(this.getAddress(walletIndex));

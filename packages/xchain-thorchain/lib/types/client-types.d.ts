@@ -1,6 +1,7 @@
-import { cosmosclient } from '@cosmos-client/core';
-import { Network, Tx, TxParams } from '@xchainjs/xchain-client';
+import { Network, Tx } from '@xchainjs/xchain-client';
 import { Asset, BaseAmount } from '@xchainjs/xchain-util';
+import Long from 'long';
+export declare type Address = string;
 export declare type NodeUrl = {
     node: string;
     rpc: string;
@@ -19,15 +20,23 @@ export declare type ThorchainClientParams = {
     explorerUrls?: ExplorerUrls;
     chainIds: ChainIds;
 };
-export declare type DepositParam = {
+export declare type DcfDepositParam = {
     walletIndex?: number;
     asset?: Asset;
     amount: BaseAmount;
     memo: string;
     sequence?: Long;
 };
+export declare type DcfTxParams = {
+    walletIndex?: number;
+    asset?: Asset;
+    amount: BaseAmount;
+    recipient: Address;
+    memo?: string;
+    sequence?: Long;
+};
 export declare type TxData = Pick<Tx, 'from' | 'to' | 'type'>;
-export declare type TxOfflineParams = TxParams & {
+export declare type TxOfflineParams = DcfTxParams & {
     /**
      * Balance of Rune to send from
      */
@@ -37,8 +46,8 @@ export declare type TxOfflineParams = TxParams & {
      * Optional: It can be ignored if asset to send from is RUNE
      */
     fromAssetBalance?: BaseAmount;
-    fromAccountNumber: cosmosclient.Long.Long;
-    fromSequence: cosmosclient.Long.Long;
+    fromAccountNumber: Long;
+    fromSequence: Long;
 };
 /**
  * Response from `thorchain/constants` endpoint

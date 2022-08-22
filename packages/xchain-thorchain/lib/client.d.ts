@@ -1,8 +1,8 @@
 import { cosmosclient, proto } from '@cosmos-client/core';
-import { Address, Balance, BaseXChainClient, Fees, Network, Tx, TxHash, TxHistoryParams, TxParams, TxsPage, XChainClient, XChainClientParams } from '@xchainjs/xchain-client';
+import { Address, Balance, BaseXChainClient, Fees, Network, Tx, TxHash, TxHistoryParams, TxsPage, XChainClient, XChainClientParams } from '@xchainjs/xchain-client';
 import { CosmosSDKClient, RPCTxResult } from '@xchainjs/xchain-cosmos';
 import { Asset } from '@xchainjs/xchain-util';
-import { ChainId, ClientUrl, DepositParam, ExplorerUrls, NodeUrl, ThorchainClientParams, TxOfflineParams } from './types';
+import { ChainId, ClientUrl, DcfDepositParam, DcfTxParams, ExplorerUrls, NodeUrl, ThorchainClientParams, TxOfflineParams } from './types';
 /**
  * Interface for custom Thorchain client
  */
@@ -11,7 +11,7 @@ export interface ThorchainClient {
     getClientUrl(): NodeUrl;
     setExplorerUrls(explorerUrls: ExplorerUrls): void;
     getCosmosClient(): CosmosSDKClient;
-    deposit(params: DepositParam): Promise<TxHash>;
+    deposit(params: DcfDepositParam): Promise<TxHash>;
     transferOffline(params: TxOfflineParams): Promise<string>;
 }
 /**
@@ -184,14 +184,14 @@ declare class Client extends BaseXChainClient implements ThorchainClient, XChain
      * @throws {"insufficient funds"} Thrown if the wallet has insufficient funds.
      * @throws {"failed to broadcast transaction"} Thrown if failed to broadcast transaction.
      */
-    deposit({ walletIndex, asset, amount, memo, sequence }: DepositParam): Promise<TxHash>;
+    deposit({ walletIndex, asset, amount, memo, sequence, }: DcfDepositParam): Promise<TxHash>;
     /**
      * Transfer balances with MsgSend
      *
      * @param {TxParams} params The transfer options.
      * @returns {TxHash} The transaction hash.
      */
-    transfer({ walletIndex, asset, amount, recipient, memo, sequence, }: TxParams): Promise<TxHash>;
+    transfer({ walletIndex, asset, amount, recipient, memo, sequence, }: DcfTxParams): Promise<TxHash>;
     /**
      * Transfer without broadcast balances with MsgSend
      *

@@ -1,42 +1,42 @@
-import { cosmosclient, proto } from '@cosmos-client/core';
-import { Address, Balance, Fees, Network, TxHash } from '@xchainjs/xchain-client';
-import { CosmosSDKClient, TxLog } from '@xchainjs/xchain-cosmos';
-import { Asset, BaseAmount } from '@xchainjs/xchain-util';
-import { ChainId, ChainIds, ClientUrl, ExplorerUrls, TxData } from './types';
-import { MsgNativeTx } from './types/messages';
-export declare const DECIMAL = 8;
-export declare const DEFAULT_GAS_ADJUSTMENT = 2;
-export declare const DEFAULT_GAS_LIMIT_VALUE = "4000000";
-export declare const DEPOSIT_GAS_LIMIT_VALUE = "500000000";
-export declare const MAX_TX_COUNT = 100;
+import { cosmosclient, proto } from '@cosmos-client/core'
+import { Address, Balance, Fees, Network, TxHash } from '@xchainjs/xchain-client'
+import { CosmosSDKClient, TxLog } from '@xchainjs/xchain-cosmos'
+import { Asset, BaseAmount } from '@xchainjs/xchain-util'
+import { ChainId, ChainIds, ClientUrl, ExplorerUrls, TxData } from './types'
+import { MsgNativeTx } from './types/messages'
+export declare const DECIMAL = 8
+export declare const DEFAULT_GAS_ADJUSTMENT = 2
+export declare const DEFAULT_GAS_LIMIT_VALUE = '4000000'
+export declare const DEPOSIT_GAS_LIMIT_VALUE = '500000000'
+export declare const MAX_TX_COUNT = 100
 /**
  * Checks whether an asset is `AssetRuneNative`
  *
  * @param {Asset} asset
  * @returns {boolean} `true` or `false`
  */
-export declare const isAssetRuneNative: (asset: Asset) => boolean;
+export declare const isAssetRuneNative: (asset: Asset) => boolean
 /**
  * Get denomination from Asset
  *
  * @param {Asset} asset
  * @returns {string} The denomination of the given asset.
  */
-export declare const getDenom: (asset: Asset) => string;
+export declare const getDenom: (asset: Asset) => string
 /**
  * Get Asset from denomination
  *
  * @param {string} denom
  * @returns {Asset|null} The asset of the given denomination.
  */
-export declare const assetFromDenom: (denom: string) => Asset | null;
+export declare const assetFromDenom: (denom: string) => Asset | null
 /**
  * Response guard for transaction broadcast
  *
  * @param {any} response The response from the node.
  * @returns {boolean} `true` or `false`.
  */
-export declare const isBroadcastSuccess: (response: unknown) => boolean;
+export declare const isBroadcastSuccess: (response: unknown) => boolean
 /**
  * Get address prefix based on the network.
  *
@@ -44,15 +44,15 @@ export declare const isBroadcastSuccess: (response: unknown) => boolean;
  * @returns {string} The address prefix based on the network.
  *
  **/
-export declare const getPrefix: (network: Network) => "thor" | "sthor" | "tthor";
+export declare const getPrefix: (network: Network) => 'thor' | 'sthor' | 'tthor'
 /**
  * Register type for encoding `MsgDeposit` messages
  */
-export declare const registerDepositCodecs: () => void;
+export declare const registerDepositCodecs: () => void
 /**
  * Register type for encoding `MsgSend` messages
  */
-export declare const registerSendCodecs: () => void;
+export declare const registerSendCodecs: () => void
 /**
  * Parse transaction data from event logs
  *
@@ -60,13 +60,13 @@ export declare const registerSendCodecs: () => void;
  * @param {Address} address - Address to get transaction data for
  * @returns {TxData} Parsed transaction data
  */
-export declare const getDepositTxDataFromLogs: (logs: TxLog[], address: Address) => TxData;
+export declare const getDepositTxDataFromLogs: (logs: TxLog[], address: Address) => TxData
 /**
  * Get the default fee.
  *
  * @returns {Fees} The default fee.
  */
-export declare const getDefaultFees: () => Fees;
+export declare const getDefaultFees: () => Fees
 /**
  * Get transaction type.
  *
@@ -74,17 +74,17 @@ export declare const getDefaultFees: () => Fees;
  * @param {string} encoding `base64` or `hex`
  * @returns {string} the transaction type.
  */
-export declare const getTxType: (txData: string, encoding: 'base64' | 'hex') => string;
+export declare const getTxType: (txData: string, encoding: 'base64' | 'hex') => string
 /**
  * Helper to get THORChain's chain id
  * @param {string} nodeUrl THORNode url
  */
-export declare const getChainId: (nodeUrl: string) => Promise<ChainId>;
+export declare const getChainId: (nodeUrl: string) => Promise<ChainId>
 /**
  * Helper to get all THORChain's chain id
  * @param {ClientUrl} client urls (use `getDefaultClientUrl()` if you don't need to use custom urls)
  */
-export declare const getChainIds: (client: ClientUrl) => Promise<ChainIds>;
+export declare const getChainIds: (client: ClientUrl) => Promise<ChainIds>
 /**
  * Builds final unsigned TX
  *
@@ -95,21 +95,34 @@ export declare const getChainIds: (client: ClientUrl) => Promise<ChainIds>;
  * @param gasLimit - transaction gas limit
  * @returns
  */
-export declare const buildUnsignedTx: ({ cosmosSdk, txBody, signerPubkey, sequence, gasLimit, }: {
-    cosmosSdk: cosmosclient.CosmosSDK;
-    txBody: proto.cosmos.tx.v1beta1.TxBody;
-    signerPubkey: proto.google.protobuf.Any;
-    sequence: Long;
-    gasLimit?: cosmosclient.Long.Long | undefined;
-}) => cosmosclient.TxBuilder;
-export declare const getEstimatedGas: ({ cosmosSDKClient, txBody, privKey, accountNumber, accountSequence, multiplier, }: {
-    cosmosSDKClient: CosmosSDKClient;
-    txBody: proto.cosmos.tx.v1beta1.TxBody;
-    privKey: proto.cosmos.crypto.secp256k1.PrivKey;
-    accountNumber: Long;
-    accountSequence: Long;
-    multiplier?: number | undefined;
-}) => Promise<Long | undefined>;
+export declare const buildUnsignedTx: ({
+  cosmosSdk,
+  txBody,
+  signerPubkey,
+  sequence,
+  gasLimit,
+}: {
+  cosmosSdk: cosmosclient.CosmosSDK
+  txBody: proto.cosmos.tx.v1beta1.TxBody
+  signerPubkey: proto.google.protobuf.Any
+  sequence: Long
+  gasLimit?: Long | undefined
+}) => cosmosclient.TxBuilder
+export declare const getEstimatedGas: ({
+  cosmosSDKClient,
+  txBody,
+  privKey,
+  accountNumber,
+  accountSequence,
+  multiplier,
+}: {
+  cosmosSDKClient: CosmosSDKClient
+  txBody: proto.cosmos.tx.v1beta1.TxBody
+  privKey: proto.cosmos.crypto.secp256k1.PrivKey
+  accountNumber: Long
+  accountSequence: Long
+  multiplier?: number | undefined
+}) => Promise<Long | undefined>
 /**
  * Structure a MsgDeposit
  *
@@ -121,11 +134,15 @@ export declare const getEstimatedGas: ({ cosmosSDKClient, txBody, privKey, accou
  *
  * @throws {"Invalid client url"} Thrown if the client url is an invalid one.
  */
-export declare const buildDepositTx: ({ msgNativeTx, nodeUrl, chainId, }: {
-    msgNativeTx: MsgNativeTx;
-    nodeUrl: string;
-    chainId: ChainId;
-}) => Promise<proto.cosmos.tx.v1beta1.TxBody>;
+export declare const buildDepositTx: ({
+  msgNativeTx,
+  nodeUrl,
+  chainId,
+}: {
+  msgNativeTx: MsgNativeTx
+  nodeUrl: string
+  chainId: ChainId
+}) => Promise<proto.cosmos.tx.v1beta1.TxBody>
 /**
  * Structure a MsgSend
  *
@@ -137,15 +154,23 @@ export declare const buildDepositTx: ({ msgNativeTx, nodeUrl, chainId, }: {
  *
  * @returns
  */
-export declare const buildTransferTx: ({ fromAddress, toAddress, assetAmount, assetDenom, memo, nodeUrl, chainId, }: {
-    fromAddress: Address;
-    toAddress: Address;
-    assetAmount: BaseAmount;
-    assetDenom: string;
-    memo?: string | undefined;
-    nodeUrl: string;
-    chainId: ChainId;
-}) => Promise<proto.cosmos.tx.v1beta1.TxBody>;
+export declare const buildTransferTx: ({
+  fromAddress,
+  toAddress,
+  assetAmount,
+  assetDenom,
+  memo,
+  nodeUrl,
+  chainId,
+}: {
+  fromAddress: Address
+  toAddress: Address
+  assetAmount: BaseAmount
+  assetDenom: string
+  memo?: string | undefined
+  nodeUrl: string
+  chainId: ChainId
+}) => Promise<proto.cosmos.tx.v1beta1.TxBody>
 /**
  * Get the balance of a given address.
  *
@@ -155,23 +180,27 @@ export declare const buildTransferTx: ({ fromAddress, toAddress, assetAmount, as
  *
  * @returns {Balance[]} The balance of the address.
  */
-export declare const getBalance: ({ address, assets, cosmosClient, }: {
-    address: Address;
-    assets?: Asset[] | undefined;
-    cosmosClient: CosmosSDKClient;
-}) => Promise<Balance[]>;
+export declare const getBalance: ({
+  address,
+  assets,
+  cosmosClient,
+}: {
+  address: Address
+  assets?: Asset[] | undefined
+  cosmosClient: CosmosSDKClient
+}) => Promise<Balance[]>
 /**
  * Get the client url.
  *
  * @returns {ClientUrl} The client url (both mainnet and testnet) for thorchain.
  */
-export declare const getDefaultClientUrl: () => ClientUrl;
+export declare const getDefaultClientUrl: () => ClientUrl
 /**
  * Get default explorer urls.
  *
  * @returns {ExplorerUrls} Default explorer urls (both mainnet and testnet) for thorchain.
  */
-export declare const getDefaultExplorerUrls: () => ExplorerUrls;
+export declare const getDefaultExplorerUrls: () => ExplorerUrls
 /**
  * Get the explorer url.
  *
@@ -179,7 +208,7 @@ export declare const getDefaultExplorerUrls: () => ExplorerUrls;
  * @param {ExplorerUrls} Explorer urls
  * @returns {string} The explorer url for thorchain based on the given network.
  */
-export declare const getExplorerUrl: ({ root }: ExplorerUrls, network: Network) => string;
+export declare const getExplorerUrl: ({ root }: ExplorerUrls, network: Network) => string
 /**
  * Get explorer address url.
  *
@@ -188,11 +217,15 @@ export declare const getExplorerUrl: ({ root }: ExplorerUrls, network: Network) 
  * @param {Address} address
  * @returns {string} The explorer url for the given address.
  */
-export declare const getExplorerAddressUrl: ({ urls, network, address, }: {
-    urls: ExplorerUrls;
-    network: Network;
-    address: Address;
-}) => string;
+export declare const getExplorerAddressUrl: ({
+  urls,
+  network,
+  address,
+}: {
+  urls: ExplorerUrls
+  network: Network
+  address: Address
+}) => string
 /**
  * Get transaction url.
  *
@@ -201,8 +234,12 @@ export declare const getExplorerAddressUrl: ({ urls, network, address, }: {
  * @param {TxHash} txID
  * @returns {string} The explorer url for the given transaction id.
  */
-export declare const getExplorerTxUrl: ({ urls, network, txID, }: {
-    urls: ExplorerUrls;
-    network: Network;
-    txID: TxHash;
-}) => string;
+export declare const getExplorerTxUrl: ({
+  urls,
+  network,
+  txID,
+}: {
+  urls: ExplorerUrls
+  network: Network
+  txID: TxHash
+}) => string

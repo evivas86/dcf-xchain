@@ -184,7 +184,7 @@ declare class Client extends BaseXChainClient implements ThorchainClient, XChain
      * @throws {"insufficient funds"} Thrown if the wallet has insufficient funds.
      * @throws {"failed to broadcast transaction"} Thrown if failed to broadcast transaction.
      */
-    deposit({ walletIndex, asset, amount, memo }: DepositParam): Promise<TxHash>;
+    deposit({ walletIndex, asset, amount, memo, sequence }: DepositParam): Promise<TxHash>;
     /**
      * Transfer balances with MsgSend
      *

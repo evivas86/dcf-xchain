@@ -1,6 +1,6 @@
 {
   "name": "decentralfi-xchain-thorchain",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Custom Thorchain client and utilities used by XChainJS clients",
   "keywords": [
     "THORChain",

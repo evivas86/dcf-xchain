@@ -6062,7 +6062,7 @@ class Client extends BaseXChainClient {
      * @throws {"insufficient funds"} Thrown if the wallet has insufficient funds.
      * @throws {"failed to broadcast transaction"} Thrown if failed to broadcast transaction.
      */
-    deposit({ walletIndex = 0, asset = AssetRuneNative, amount, memo }) {
+    deposit({ walletIndex = 0, asset = AssetRuneNative, amount, memo, sequence }) {
         var _a, _b, _c, _d;
         return __awaiter(this, void 0, void 0, function* () {
             const balances = yield this.getBalance(this.getAddress(walletIndex));
@@ -6100,7 +6100,7 @@ class Client extends BaseXChainClient {
                 chainId: this.getChainId(),
             });
             const account = yield this.getCosmosClient().getAccount(fromAddressAcc);
-            const accountSequence = account.sequence || cosmosclient.Long.ZERO;
+            const accountSequence = sequence ? sequence : account.sequence || cosmosclient.Long.ZERO;
             const accountNumber = account.account_number || cosmosclient.Long.ZERO;
             const gasLimit = yield getEstimatedGas({
                 cosmosSDKClient: this.getCosmosClient(),
@@ -6114,7 +6114,7 @@ class Client extends BaseXChainClient {
                 txBody: depositTxBody,
                 signerPubkey: cosmosclient.codec.packAny(signerPubkey),
                 gasLimit,
-                sequence: account.sequence || cosmosclient.Long.ZERO,
+                sequence: accountSequence || cosmosclient.Long.ZERO,
             });
             return (yield this.getCosmosClient().signAndBroadcast(txBuilder, privKey, account)) || '';
         });
